@@ -2,7 +2,6 @@
 
 # Libraries used
 library(data.table)
-library(xgboost)
 library(dplyr)
 library(ggplot2)
 library(treemap)
