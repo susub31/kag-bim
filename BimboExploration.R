@@ -44,7 +44,7 @@ ggplot(test %>% sample_frac(0.005)) +
   scale_y_continuous(name="Client / Product deliveries") +
   theme_bw() 
 
-#form a small set based on training data
+#form a small set based on training data (replace the datasets with train to see the information across entire training set)
 smallset = train %>% sample_frac(0.005)
 
 canals_by_semana = smallset %>%
