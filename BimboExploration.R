@@ -2,6 +2,7 @@
 
 # Libraries used
 library(data.table)
+library(xgboost)
 library(dplyr)
 library(ggplot2)
 library(treemap)
@@ -43,7 +44,7 @@ ggplot(test %>% sample_frac(0.005)) +
   scale_y_continuous(name="Client / Product deliveries") +
   theme_bw() 
 
-#form a small set based on training data (replace the datasets with train to see the information across entire training set)
+#form a small set based on training data
 smallset = train %>% sample_frac(0.005)
 
 canals_by_semana = smallset %>%
@@ -83,6 +84,8 @@ str(unique_agencies)  # 552 unique agencies
 # summarise multiple values into single value
 # products_by_routes is a dataset with # of products for each route - helps to get an idea of routes with most number of products
 products_by_routes = smallset %>% group_by(Ruta_SAK) %>% summarise(numproducts = n_distinct(Producto_ID))
+products_by_routes = train %>% group_by(Ruta_SAK) %>% summarise(numproducts = n_distinct(Producto_ID))
+
 
 # clients by routes - get number of distinct clients by each route
 # summarise multiple values into single value
@@ -99,8 +102,30 @@ clients_by_num = mutate(clients_by_num, Is.Chain=ifelse(NumWithSameName>=25, 1, 
 # count of clients identified as chain stores -- 2309 stores
 sum(clients_by_num$Is.Chain==1)
 
+# get details such as first week product was introduced, total demand & average demand for the product across all clients / weeks
+prod_week_introduced = smallset %>% 
+                       group_by(Producto_ID) %>% 
+                       summarise(week.introduced=min(Semana), 
+                                 week.total = sum(Demanda_uni_equil),
+                                 mean.demand = mean(Demanda_uni_equil))
+
+# join datasets based on Producto_ID
+smallset_joined = smallset %>%
+  left_join (prod_week_introduced, 
+        by=c("Producto_ID"))
+
+# include average demand of each product specific to each client (across all weeks information is available for)
+prod_details = smallset %>% 
+  group_by(Producto_ID, Cliente_ID) %>% 
+  summarise(mean.demandbyclient= mean(Demanda_uni_equil))
+
+smallset_joined = smallset_joined %>%
+  left_join (prod_details, 
+             by=c("Producto_ID", "Cliente_ID"))
 
 
-
-
-
+# Identify products in test set that are not in train set
+train.products = unique(train$Producto_ID)
+test.products = unique(test$Producto_ID)
+NewProducts = test.products[!(test.products %in% train.products)]
+str(NewProducts)
