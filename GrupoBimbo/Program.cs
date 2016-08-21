@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Accord.Statistics.Models.Regression.Linear;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,49 +13,46 @@ namespace GrupoBimbo
     {
         static void Main(string[] args)
         {
-            var clients = new Dictionary<int, string>();
-            var lines = File.ReadAllLines("cliente_tabla.csv").Skip(1);
-            var sb = new StringBuilder("Cliente_ID,NombreCliente\r\n");
-
-            foreach (var line in lines)
+            using (var db = new GrupoBimboEntities())
             {
-                var data = line.Split(',');
+                var tests = db.tests.Take(10);
 
-                var id = int.Parse(data[0]);
-                var name = data[1];
-
-                while (name.Contains("  "))
-                    name = name.Replace("  ", " ");
-
-                if (!clients.ContainsKey(id))
+                foreach (var test in tests)
                 {
-                    clients.Add(id, name);
-                    continue;
+                    var orderEntities = db.trains.Where(o =>
+                                                    o.Agencia_ID == test.Agencia_ID &&
+                                                    o.Canal_ID == test.Canal_ID &&
+                                                    o.Ruta_SAK == test.Ruta_SAK &&
+                                                    o.Cliente_ID == test.Cliente_ID &&
+                                                    o.Producto_ID == test.Producto_ID).ToList();
+
+                    if (orderEntities.Count < 5)
+                        continue;
+
+                    var orders = new double[9][];
+
+                    for (int i = 0; i < 9; i++)
+                        orders[i] = new double[] { i, 0 };
+
+                    foreach (var order in orderEntities)
+                        orders[order.Semana-1][1] = order.Venta_uni_hoy - order.Dev_uni_proxima;
+
+                    var regressionCalculator = new MultipleLinearRegression(2);
+                    var regression = regressionCalculator.Transform(orders);
+
+                    Debugger.Break();
                 }
-                else
-                {
-                    if (clients[id].ToLower() == "sin nombre")
-                        clients[id] = name;
-                }
-               
             }
+        }
 
-            //Dictionary<string, int> clientNameCounts = new Dictionary<string, int>();
+        static T[][] ListToMultidimensionalArray<T>(List<List<T>> list)
+        {
+            T[][] arr = new T[list.Count][];
 
-            foreach (var kvp in clients)
-            {
-                sb.AppendLine($"{kvp.Key},{kvp.Value}");
-            }
+            for (int i = 0; i < list.Count; i++)
+                arr[i] = list[i].ToArray();
 
-            //foreach (var kvp in clientNameCounts)
-            //{
-            //    if (kvp.Value > 1)
-            //    {
-            //        sb.AppendLine($"Name: {kvp.Key} Count: {kvp.Value}");
-            //    }
-            //}
-
-            File.WriteAllText("output.txt", sb.ToString());
+            return arr;
         }
     }
 }

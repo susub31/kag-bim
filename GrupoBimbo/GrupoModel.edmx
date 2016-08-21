@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GrupoBimboModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Cliente_ID" />
+          </Key>
+          <Property Name="Cliente_ID" Type="int" Nullable="false" />
+          <Property Name="NombreCliente" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Producto_ID" />
+          </Key>
+          <Property Name="Producto_ID" Type="int" Nullable="false" />
+          <Property Name="NombreProducto" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" />
+          <Property Name="Agencia_ID" Type="int" />
+          <Property Name="Canal_ID" Type="int" />
+          <Property Name="Ruta_SAK" Type="int" />
+          <Property Name="Cliente_ID" Type="int" />
+          <Property Name="Producto_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="train">
+          <Key>
+            <PropertyRef Name="Semana" />
+            <PropertyRef Name="Agencia_ID" />
+            <PropertyRef Name="Canal_ID" />
+            <PropertyRef Name="Ruta_SAK" />
+            <PropertyRef Name="Cliente_ID" />
+            <PropertyRef Name="Producto_ID" />
+          </Key>
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Agencia_ID" Type="int" Nullable="false" />
+          <Property Name="Canal_ID" Type="int" Nullable="false" />
+          <Property Name="Ruta_SAK" Type="int" Nullable="false" />
+          <Property Name="Cliente_ID" Type="int" Nullable="false" />
+          <Property Name="Producto_ID" Type="int" Nullable="false" />
+          <Property Name="Venta_uni_hoy" Type="int" Nullable="false" />
+          <Property Name="Venta_hoy" Type="money" Nullable="false" />
+          <Property Name="Dev_uni_proxima" Type="int" Nullable="false" />
+          <Property Name="Dev_proxima" Type="money" Nullable="false" />
+          <Property Name="Demanda_uni_equil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GrupoBimboModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="test" EntityType="Self.test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="train" EntityType="Self.train" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GrupoBimboModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Cliente_ID" />
+          </Key>
+          <Property Name="Cliente_ID" Type="Int32" Nullable="false" />
+          <Property Name="NombreCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Producto_ID" />
+          </Key>
+          <Property Name="Producto_ID" Type="Int32" Nullable="false" />
+          <Property Name="NombreProducto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" />
+          <Property Name="Agencia_ID" Type="Int32" />
+          <Property Name="Canal_ID" Type="Int32" />
+          <Property Name="Ruta_SAK" Type="Int32" />
+          <Property Name="Cliente_ID" Type="Int32" />
+          <Property Name="Producto_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="train">
+          <Key>
+            <PropertyRef Name="Semana" />
+            <PropertyRef Name="Agencia_ID" />
+            <PropertyRef Name="Canal_ID" />
+            <PropertyRef Name="Ruta_SAK" />
+            <PropertyRef Name="Cliente_ID" />
+            <PropertyRef Name="Producto_ID" />
+          </Key>
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Agencia_ID" Type="Int32" Nullable="false" />
+          <Property Name="Canal_ID" Type="Int32" Nullable="false" />
+          <Property Name="Ruta_SAK" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_ID" Type="Int32" Nullable="false" />
+          <Property Name="Producto_ID" Type="Int32" Nullable="false" />
+          <Property Name="Venta_uni_hoy" Type="Int32" Nullable="false" />
+          <Property Name="Venta_hoy" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Dev_uni_proxima" Type="Int32" Nullable="false" />
+          <Property Name="Dev_proxima" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Demanda_uni_equil" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GrupoBimboEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="tests" EntityType="Self.test" />
+          <EntitySet Name="trains" EntityType="Self.train" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GrupoBimboModelStoreContainer" CdmEntityContainer="GrupoBimboEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="GrupoBimboModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="GrupoBimboModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Producto_ID" ColumnName="Producto_ID" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tests">
+            <EntityTypeMapping TypeName="GrupoBimboModel.test">
+              <MappingFragment StoreEntitySet="test">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Agencia_ID" ColumnName="Agencia_ID" />
+                <ScalarProperty Name="Canal_ID" ColumnName="Canal_ID" />
+                <ScalarProperty Name="Ruta_SAK" ColumnName="Ruta_SAK" />
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+                <ScalarProperty Name="Producto_ID" ColumnName="Producto_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trains">
+            <EntityTypeMapping TypeName="GrupoBimboModel.train">
+              <MappingFragment StoreEntitySet="train">
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Agencia_ID" ColumnName="Agencia_ID" />
+                <ScalarProperty Name="Canal_ID" ColumnName="Canal_ID" />
+                <ScalarProperty Name="Ruta_SAK" ColumnName="Ruta_SAK" />
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+                <ScalarProperty Name="Producto_ID" ColumnName="Producto_ID" />
+                <ScalarProperty Name="Venta_uni_hoy" ColumnName="Venta_uni_hoy" />
+                <ScalarProperty Name="Venta_hoy" ColumnName="Venta_hoy" />
+                <ScalarProperty Name="Dev_uni_proxima" ColumnName="Dev_uni_proxima" />
+                <ScalarProperty Name="Dev_proxima" ColumnName="Dev_proxima" />
+                <ScalarProperty Name="Demanda_uni_equil" ColumnName="Demanda_uni_equil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
