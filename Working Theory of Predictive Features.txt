@@ -1,0 +1,69 @@
+
+AverageWeeklyDemand_PerStore -- the "true" demand, on average, each week for the product at a given store; the average must trim the initial weeks from the sequence that don't have an order; and must trim final weeks that have an order (this can only be done if there are any gaps seen in the sequence).
+
+CurrentStockBasedOnWeeklyDemand -- Defined as: LastOrderCount - (WeeksSinceLastOrder * AverageWeeklyDemand_PerStore)  [assuming 1-based]; this actually assumes there is a trigger threshold amount that remains unseen within the stock levels
+
+=============
+
+Cluster stores by:
+	- based on sales amounts ($)
+	- similarity in products sold
+
+====
+
+*Demand Per Store, Per Product*
+
+LastWeek_PerStore_PerProduct -- Last week's demand; per store, per product
+MovingAverage_2-Weeks_PerStore_PerProduct -- 2-week moving average demand; per store, per product
+MovingAverage_3-Weeks_PerStore_PerProduct -- 3-week moving average demand; per store, per product
+MovingAverage_4-Weeks_PerStore_PerProduct -- 4-week moving average demand; per store, per product
+Mode_4-Weeks_PerStore_PerProduct -- Mode of last 4 weeks demand; per store, per product
+Mode_AllWeeks_PerStore_PerProduct -- Mode of demand across all available weeks; per store, per product
+
+====
+
+*Demand Per Store, By Total Sales Amount*
+
+LastWeek_PerStore_SalesAmount -- Last week's total sales amount; per store
+MovingAverage_2-Weeks_PerStore_SalesAmount -- 2-week moving average of total sales amount; per store
+MovingAverage_3-Weeks_PerStore_SalesAmount -- 3-week moving average of total sales amount; per store
+MovingAverage_4-Weeks_PerStore_SalesAmount -- 4-week moving average of total sales amount; per store
+
+====
+
+*Demand Across Entire Population, By Total Sales Amount*
+
+LastWeek_PerStore_PerProduct -- Last week's demand; per store, per product
+MovingAverage_2-Weeks_PerStore_PerProduct -- 2-week moving average demand; per store, per product
+MovingAverage_3-Weeks_PerStore_PerProduct -- 3-week moving average demand; per store, per product
+MovingAverage_4-Weeks_PerStore_PerProduct -- 4-week moving average demand; per store, per product
+Mode_4-Weeks_PerStore_PerProduct -- Mode of last 4 weeks demand; per store, per product
+Mode_AllWeeks_PerStore_PerProduct -- Last weeks demand; per store, per product
+
+====
+
+*Demand Per Agency, By Total Sales Amount*
+
+====
+
+*Demand Per Route, By Total Sales Amount*
+
+
+	- demand at each product level:
+	  -- entire population
+	  -- per agency
+	  -- per route
+
+	  
+MOVING AVERAGES of the following (1-week, 2-week, 3-week, 4-week):
+	- demand across top 50 popular products:
+	  -- entire population
+	  -- per agency
+	  -- per route
+
+	  
+=====================
+
+Additional Problems (new clients, new products)
+-popoulation demand across top 50 popular products -- baseline when new products are introduced
+
