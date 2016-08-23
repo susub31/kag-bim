@@ -1,0 +1,16 @@
+# Build model using independent variables
+NewModel = lm(Demanda_uni_equil ~ Venta_hoy + Ruta_SAK + Canal_ID + Dev_proxima, data=trainsmall)
+
+#prediction using new model - predict on testset using model formed above
+predlm1 = predict(lm1, newdata=testsmall)
+
+# SSE-sum of squared errors calculation using predicted value compared to actual value in the test set
+SSElm1 = sum((testsmall$Demanda_uni_equil - predlm1) ^ 2)
+
+# SSE using log of the predicted vs. actual values; note: 1 is added to handle log(0)
+sselog = sum((log(predlm1 + 1) - log(testsmall$Demanda_uni_equil + 1) ) ^ 2)
+
+# RMSLE - Root mean squared log error calculation; nrow is number of rows in testsmall (test set)
+RMSLElm1 = (1/nrow(testsmall) * (sselog))
+
+
